@@ -1,5 +1,5 @@
 import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
-
+import {startModal} from './components/startModel.ts'
 // Remember to rename these classes and interfaces!
 
 interface MyPluginSettings {

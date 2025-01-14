@@ -1,43 +1,31 @@
 import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
 import {startModal} from './components/startModel.ts'
-// Remember to rename these classes and interfaces!
+import {ProjectFlowInit} from './utils/init.ts';
 
 interface MyPluginSettings {
-	mySetting: string;
+	isSetupDone: boolean;
 }
 
 const DEFAULT_SETTINGS: MyPluginSettings = {
-	mySetting: 'default'
+isSetupDone : false	
 }
+
 
 export default class MyPlugin extends Plugin {
 	settings: MyPluginSettings;
 
 	async onload() {
-		await this.loadSettings()}
-	// check for obsidian open event
-	// Search or a Project-Flow folder ( if its not created it creates one)
-	// If there is a folder already created a Modal shal apear to notify the user  asking to rename or delete the folder with the conflicting name
-	//
-	//Creates a cards folder
-	//Creates a project folder
-	//
-	//Goes to the kanban Config and set's it to de default bord folder to be the projects folder and the notes from card folder to be the cards folder	
-	//
-	//Cals the start modal
-	//
-	// start modal
-	//	On start
-	//    Goes to the projects folder
-	//    Scrapes each card from each project Kanban Board
-	//    Creates a list with them orded by Priority 
-	//    Shows the list on the modal as a table.
-	//
-	//	
+		let currentVault = this.app.vault; 
+		await this.loadSettings()
+		await	ProjectFlowInit(currentVault,DEFAULT_SETTINGS.isSetupDone)	
+	}
 
 	onunload() {
 
 	}
+
+
+
 
 	async loadSettings() {
 		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
@@ -47,6 +35,11 @@ export default class MyPlugin extends Plugin {
 		await this.saveData(this.settings);
 	}
 }
+
+
+
+
+
 class SampleSettingTab extends PluginSettingTab {
 	plugin: MyPlugin;
 

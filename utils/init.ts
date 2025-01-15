@@ -1,31 +1,28 @@
 import { Vault } from "obsidian";
-import {ensureDirectorysExist} from 'utils/ensureDirectoryExists' 
+import {checkCoreAssetsHealth} from 'utils/ensureDirectoryExists' 
 
 
 export function ProjectFlowInit(currentVault:Vault,isSetupDone : boolean){
 
 	const coreAssets = {
-	  mainProjectFlowFolderPath: './projectFlow',
-	  mainProjectFolderPath: '/projectFlow/projects',
-	  mainNoteFromCardFolderPath: '/projectFlow/notesFromCards',
-	  mainNoteFromcardTemplatePath: '/projectFlow/notesFromCards/noteFromCardTemplate.md',
+	  mainProjectFlowFolderPath:    './projectFlow',
+	  mainProjectFolderPath:		'./projectFlow/projects',
+	  mainNoteFromCardFolderPath:   './projectFlow/notesFromCards',
+	  mainNoteFromcardTemplatePath: './projectFlow/notesFromCards/noteFromCardTemplate.md',
 	};
 
 
 	//if the metadata says that the plugin was already setup 
-	if(isSetupDone = true){
+	if(isSetupDone === true){
 	  console.log('SetUp is already done, starting core assets health check');
-		ensureDirectorysExist(currentVault,coreAssets);
-		
-	}
+		checkCoreAssetsHealth(currentVault,coreAssets);
 
-	if (isSetupDone = false){
+	}
+ 
+	if (isSetupDone === false){
 	  console.log('SetUp needed');
-	  // Search for a Project-Flow folder 
-		// ( if its not created )
-			//Creates a cards folder
-			//Creates a project folder 
-		// If there is a folder with the name of the project already created
+		checkCoreAssetsHealth(currentVault,coreAssets);
+
 			//	A Modal shal apear to notify the user  asking to rename or delete the folder with the conflicting name
 	}
 

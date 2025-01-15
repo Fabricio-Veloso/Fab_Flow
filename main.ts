@@ -2,22 +2,33 @@ import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Set
 import {startModal} from './components/startModel.ts'
 import {ProjectFlowInit} from './utils/init.ts';
 
-interface MyPluginSettings {
+interface ProjectFlowSettings {
 	isSetupDone: boolean;
 }
 
-const DEFAULT_SETTINGS: MyPluginSettings = {
+const DEFAULT_SETTINGS: ProjectFlowSettings = {
 isSetupDone : false	
 }
 
 
-export default class MyPlugin extends Plugin {
-	settings: MyPluginSettings;
+export default class ProjectFlow extends Plugin {
+	settings: ProjectFlowSettings;
 
 	async onload() {
-		let currentVault = this.app.vault; 
-		await this.loadSettings()
-		await	ProjectFlowInit(currentVault,DEFAULT_SETTINGS.isSetupDone)	
+		let currentVault = this.app.vault;
+
+		await this.loadSettings();
+
+		let initSucces = await ProjectFlowInit(currentVault,DEFAULT_SETTINGS.isSetupDone)	
+
+		if(initSucces === true){
+			console.log(' the initialization was a succes');
+			this.settings.isSetupDone = true;
+		}
+
+		if(initSucces === false){
+			console.log(' the initialization failed')
+		}
 	}
 
 	onunload() {

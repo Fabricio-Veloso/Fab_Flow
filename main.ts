@@ -1,15 +1,16 @@
 import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
-import {startModal} from './components/startModel.ts'
-import {ProjectFlowInit} from './utils/init.ts';
+import {startModal} from './components/startModel'
+import {ProjectFlowInit} from './utils/init';
 
 interface ProjectFlowSettings {
 	isSetupDone: boolean;
+	mySetting:string;
 }
 
 const DEFAULT_SETTINGS: ProjectFlowSettings = {
-isSetupDone : false	
+isSetupDone : false,	
+mySetting : "test"
 }
-
 
 export default class ProjectFlow extends Plugin {
 	settings: ProjectFlowSettings;
@@ -19,14 +20,15 @@ export default class ProjectFlow extends Plugin {
 
 		await this.loadSettings();
 
-		let initSucces = await ProjectFlowInit(currentVault,DEFAULT_SETTINGS.isSetupDone)	
+		let initSucces = ProjectFlowInit(currentVault,DEFAULT_SETTINGS.isSetupDone);
 
-		if(initSucces === true){
+		if(initSucces === 0){
 			console.log(' the initialization was a succes');
 			this.settings.isSetupDone = true;
+			this.saveSettings();
 		}
 
-		if(initSucces === false){
+		if(initSucces === 1){
 			console.log(' the initialization failed')
 		}
 	}
@@ -39,7 +41,15 @@ export default class ProjectFlow extends Plugin {
 
 
 	async loadSettings() {
-		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+		const savedSettings = await this.loadData() || {};
+
+		this.settings = Object.assign({}, DEFAULT_SETTINGS, savedSettings);
+
+		if (!this.settings.isSetupDone) {
+		  this.settings = Object.assign({}, this.settings, DEFAULT_SETTINGS);
+		} else {
+		  console.log('Setup status loaded as previously done');
+		}
 	}
 
 	async saveSettings() {
@@ -52,9 +62,9 @@ export default class ProjectFlow extends Plugin {
 
 
 class SampleSettingTab extends PluginSettingTab {
-	plugin: MyPlugin;
+	plugin: ProjectFlow;
 
-	constructor(app: App, plugin: MyPlugin) {
+	constructor(app: App, plugin: ProjectFlow) {
 
 		super(app, plugin);
 		this.plugin = plugin;
@@ -75,5 +85,8 @@ class SampleSettingTab extends PluginSettingTab {
 					this.plugin.settings.mySetting = value;
 					await this.plugin.saveSettings();
 				}));
+
+		new Setting(containerEl)
+			
 	}
 }

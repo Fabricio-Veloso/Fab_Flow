@@ -2,6 +2,7 @@ import { Vault } from "obsidian";
 import {checkCoreAssetsHealth} from './checkcoreassetshealth' 
 import {createCoreAssets} from './createcoreassets'
 import {Asset} from 'interfaces/Asset'
+import {checkSetupReady} from './checksetupready'
 
 export async function ProjectFlowInit(currentVault:Vault,isSetupDone:Boolean){
 
@@ -19,20 +20,17 @@ export async function ProjectFlowInit(currentVault:Vault,isSetupDone:Boolean){
 	}
 
 	const coreSetupReq = {
-		readyStatus: false,
 		anyConflictOnPath: false,
 	};
 
+	
 
 	if(isSetupDone == false){
 		console.log;('SetUp needed'+ `${isSetupDone}`)
 		await checkCoreAssetsHealth(currentVault,coreAssetsDictionary,coreSetupReq);
 
-		if (!coreSetupReq.anyConflictOnPath) {
-			coreSetupReq.readyStatus = true;
-		}
 
-		if (coreSetupReq.readyStatus ) {
+		if (await checkSetupReady(coreSetupReq) === false) {
 			console.log('Initialization procedure ready');
 			console.log('Creating core assets');
 			await createCoreAssets(currentVault,coreAssetsDictionary);

@@ -1,7 +1,8 @@
 import { Vault } from "obsidian";
-import {checkCoreAssetsHealth} from './CoreAssetsCheckHealth' 
-import {createCoreAssets} from './createCoreAssets'
+import {checkCoreAssetsHealth} from './checkcoreassetshealth' 
+import {createCoreAssets} from './createcoreassets'
 import {Asset} from 'interfaces/Asset'
+
 export async function ProjectFlowInit(currentVault:Vault,isSetupDone:Boolean){
 
 	const coreAssets = {
@@ -23,7 +24,6 @@ export async function ProjectFlowInit(currentVault:Vault,isSetupDone:Boolean){
 	};
 
 
-	//if the metadata says that the plugin was already setup 
 	if(isSetupDone == false){
 		console.log;('SetUp needed'+ `${isSetupDone}`)
 		await checkCoreAssetsHealth(currentVault,coreAssetsDictionary,coreSetupReq);

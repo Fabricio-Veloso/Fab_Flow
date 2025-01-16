@@ -1,10 +1,18 @@
 import {Asset} from '../interfaces/Asset'
 
-export async function checkAssetsConflicts(coreAssetsDictionary: { [key: string]: Asset },anyConflictOnPath:Boolean){
+export async function checkAssetsConflicts(coreAssetsDictionary: { [key: string]: Asset },anyConflictOnPath:Boolean,isSetupDone:boolean){
+
+	let status1 :string;
+
+
+	if(isSetupDone == true){
+		status1 = 'conflicting';
+	}else{
+		status1 = 'founded';
+	}
 
 	for (const [key, { status }] of Object.entries(coreAssetsDictionary)) {
-		if (status === 'conflicting') {
-			console.log(`The path "${key}" is conflicting\nPlease rename or delete the conflicting file\nRestart the plugin`);
+		if (status === status1) {
 			anyConflictOnPath = true;
 		 
 		}
@@ -12,6 +20,7 @@ export async function checkAssetsConflicts(coreAssetsDictionary: { [key: string]
 	if (anyConflictOnPath === true){
 		return 1;
 	}
+
 }
 
 

@@ -1,6 +1,6 @@
 import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
 import {startModal} from './components/startModel'
-import {ProjectFlowInit} from './utils/init';
+import {ProjectFlowInit} from './utils/projectflowinit';
 
 interface ProjectFlowSettings {
 	isSetupDone: boolean;
@@ -17,15 +17,15 @@ export default class ProjectFlow extends Plugin {
 
 	async onload() {
 		let currentVault = this.app.vault;
-
 		await this.loadSettings();
+		this.addSettingTab(new ProjectFlowMainSettingTab(this.app, this));
 
-		let initSucces = ProjectFlowInit(currentVault,DEFAULT_SETTINGS.isSetupDone);
+		let initSucces = await ProjectFlowInit(currentVault,this.settings.isSetupDone);
 
 		if(initSucces === 0){
 			console.log(' the initialization was a succes');
 			this.settings.isSetupDone = true;
-			this.saveSettings();
+			await this.saveSettings();
 		}
 
 		if(initSucces === 1){
@@ -38,8 +38,6 @@ export default class ProjectFlow extends Plugin {
 	}
 
 
-
-
 	async loadSettings() {
 		const savedSettings = await this.loadData() || {};
 
@@ -48,7 +46,7 @@ export default class ProjectFlow extends Plugin {
 		if (!this.settings.isSetupDone) {
 		  this.settings = Object.assign({}, this.settings, DEFAULT_SETTINGS);
 		} else {
-		  console.log('Setup status loaded as previously done');
+		  console.log('Setup status loaded as previously done'+ `${this.settings.isSetupDone}`);
 		}
 	}
 
@@ -57,15 +55,10 @@ export default class ProjectFlow extends Plugin {
 	}
 }
 
-
-
-
-
-class SampleSettingTab extends PluginSettingTab {
+class ProjectFlowMainSettingTab extends PluginSettingTab {
 	plugin: ProjectFlow;
 
 	constructor(app: App, plugin: ProjectFlow) {
-
 		super(app, plugin);
 		this.plugin = plugin;
 	}
@@ -87,6 +80,25 @@ class SampleSettingTab extends PluginSettingTab {
 				}));
 
 		new Setting(containerEl)
+		  .setName('Reset Settings')
+		  .setDesc('Reset all settings to their default values.')
+		  .addButton((button: ButtonComponent) => {
+			button
+			  .setButtonText('Reset')
+			  .setTooltip('Reset to default settings')
+			  .onClick(async () => {
+				// Reset settings to default
+				this.plugin.settings = { ...DEFAULT_SETTINGS };
+				
+				// Save the reset settings
+				await this.plugin.saveSettings();
+				
+				// Optionally, you can show a confirmation message
+				new Notice('Settings have been reset to default.');
+			  });
+		  });
+
+
 			
 	}
 }

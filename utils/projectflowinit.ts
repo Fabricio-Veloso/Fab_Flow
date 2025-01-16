@@ -1,6 +1,6 @@
 import { Vault } from "obsidian";
 import {checkCoreAssetsHealth} from './checkcoreassetshealth' 
-import {createCoreAssets} from './createcoreassets'
+import {createCoreAssets} from './createCoreAssets'
 import {Asset} from 'interfaces/Asset'
 import {checkSetupReady} from './checksetupready'
 

@@ -1,5 +1,5 @@
 import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
-import {startModal} from './components/startModel'
+import {startModal} from './components/startmodal'
 import {ProjectFlowInit} from './utils/projectflowinit';
 
 interface ProjectFlowSettings {
@@ -13,7 +13,7 @@ mySetting : "test"
 }
 
 export default class ProjectFlow extends Plugin {
-	settings: ProjectFlowSettings;
+	settings: ProjectFlowSettings; 
 
 	async onload() {
 		let currentVault = this.app.vault;
@@ -24,6 +24,7 @@ export default class ProjectFlow extends Plugin {
 		console.log(' the initialization was a succes');
 		this.settings.isSetupDone = true;
 		await this.saveSettings();
+		new startModal(this.app).open();	
 
 	}
 

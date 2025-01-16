@@ -20,17 +20,11 @@ export default class ProjectFlow extends Plugin {
 		await this.loadSettings();
 		this.addSettingTab(new ProjectFlowMainSettingTab(this.app, this));
 
-		let initSucces = await ProjectFlowInit(currentVault,this.settings.isSetupDone);
+		await ProjectFlowInit(currentVault,this.settings.isSetupDone);
+		console.log(' the initialization was a succes');
+		this.settings.isSetupDone = true;
+		await this.saveSettings();
 
-		if(initSucces === 0){
-			console.log(' the initialization was a succes');
-			this.settings.isSetupDone = true;
-			await this.saveSettings();
-		}
-
-		if(initSucces === 1){
-			console.log(' the initialization failed')
-		}
 	}
 
 	onunload() {

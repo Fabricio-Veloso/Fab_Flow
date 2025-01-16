@@ -9,15 +9,20 @@ export async function checkCoreAssetsHealth(vault: Vault ,coreAssetsDictionary: 
 	let status1, status2 :string
 
 	if(isSetupDone == true){
-		status1 = 'conflicting';
-		status2 = 'Dont exist';
-	}else{
 		status1 = 'founded';
 		status2 = 'missing';
+	}
+	if(isSetupDone == false){
+		status1 = 'Dont Exist';
+		status2 = 'Conflicting';
 	}
 
 	await checkCoreAssetsPath(vault,coreAssetsDictionary,status1,status2); 
 	console.log(coreAssetsDictionary);
+
+	if(isSetupDone == false){
 	await checkAssetsConflicts(coreAssetsDictionary,coreSetupReq.anyConflictOnPath,isSetupDone);
+	}
+
 
 }

@@ -4,7 +4,7 @@ import {createCoreAssets} from './createcoreassets'
 import {Asset} from 'interfaces/Asset'
 import {checkSetupReady} from './checksetupready'
 
-export async function ProjectFlowInit(currentVault:Vault,isSetupDone:Boolean){
+export async function ProjectFlowInit(currentVault:Vault,isSetupDone:boolean){
 
 	const coreAssets = {
 	  mainProjectFlowFolderPath:    './projectFlow',
@@ -26,23 +26,24 @@ export async function ProjectFlowInit(currentVault:Vault,isSetupDone:Boolean){
 	
 
 	if(isSetupDone == false){
-		console.log;('SetUp needed'+ `${isSetupDone}`)
-		await checkCoreAssetsHealth(currentVault,coreAssetsDictionary,coreSetupReq);
+		console.log('SetUp needed');
+		await checkCoreAssetsHealth(currentVault,coreAssetsDictionary,coreSetupReq,isSetupDone);
 
 
 		if (await checkSetupReady(coreSetupReq) === false) {
 			console.log('Initialization procedure ready');
+
 			console.log('Creating core assets');
 			await createCoreAssets(currentVault,coreAssetsDictionary);
 		}
 
-		return 0; 
-	}
- 
+	} 
+
 	if (isSetupDone == true){
-		console.log('SetUp is already done'+ `${isSetupDone}`+'\nStarting core assets health check');
-		await checkCoreAssetsHealth(currentVault,coreAssetsDictionary,coreSetupReq);
-		return 0;		  
+		console.log('SetUp is already done\nStarting core assets health check');
+		await checkCoreAssetsHealth(currentVault,coreAssetsDictionary,coreSetupReq,isSetupDone);
+		await createCoreAssets(currentVault,coreAssetsDictionary);
+
 		//	A Modal shal apear to notify the user  asking to rename or delete the folder with the conflicting name
 	}
 

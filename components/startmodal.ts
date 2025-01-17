@@ -19,7 +19,7 @@ export class startModal extends Modal {
 
     const dataRow = table.createEl('tr');
     dataRow.createEl('td', { text: 'Data 1' });
-    dataRow.createEl('td', { text: 'Data 2' });
+    dataRow.createEl('td', { text: 'Data 3' });
 
     // Exemplo de adicionar um botão que fecha o modal
     new Setting(contentEl)

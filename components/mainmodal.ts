@@ -1,27 +1,16 @@
 import { App, Modal, Setting } from 'obsidian';
 
-export class startModal extends Modal {
+export class mainModal extends Modal {
   constructor(app: App) {
     super(app);
   }
 
   onOpen() {
     const { contentEl } = this;
-
-    // Exemplo de adicionar um título ao modal
-    contentEl.createEl('h2', { text: 'My Custom Modal' });
-
-    // Exemplo de adicionar uma tabela ou lista
-    const table = contentEl.createEl('table');
-    const headerRow = table.createEl('tr');
-    headerRow.createEl('th', { text: 'Column 1' });
-    headerRow.createEl('th', { text: 'Column 2' });
-
-    const dataRow = table.createEl('tr');
-    dataRow.createEl('td', { text: 'Data 1' });
-    dataRow.createEl('td', { text: 'Data 3' });
-
-    // Exemplo de adicionar um botão que fecha o modal
+	
+	//if there is any tasks from projects, show the by priority
+	// show the optons folowed by there reespective shotcuts
+		//cals a function to get all the comands
     new Setting(contentEl)
       .addButton(btn => 
         btn.setButtonText('Close')

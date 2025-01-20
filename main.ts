@@ -1,6 +1,7 @@
 import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
-import {startModal} from './components/startmodal'
-import {ProjectFlowInit} from './utils/initialization/projectflowinit';
+import {mainModal} from './components/startmoda'
+import {ProjectFlowInit} from './utils/initialization/projectflowinit'
+import {registerAllCommands} from "./utils/initialization/registerAllCommands"
 
 interface ProjectFlowSettings {
 	isSetupDone: boolean;
@@ -27,7 +28,7 @@ export default class ProjectFlow extends Plugin {
 			console.log(' the initialization was a succes');
 			this.settings.isSetupDone = true;
 			await this.saveSettings();
-			
+			registerAllCommands(this);
 		});
 	}
 

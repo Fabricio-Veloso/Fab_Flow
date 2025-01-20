@@ -1,4 +1,4 @@
-import { App, Modal, Setting } from 'obsidian';
+import { App, Modal, } from 'obsidian';
 
 export class hotkeysModal extends Modal {
   constructor(app: App) {
@@ -7,7 +7,9 @@ export class hotkeysModal extends Modal {
 
   onOpen() {
 	const contentEl = this;
-	/* shows a prompt saying the imortance of setting hotkeys to the user*/ 
+		contentEl.contentEl
+	// calls a function that get all the commands from the plugin. 
+	// shows a headding and text to explanethe importance os creating shotcuts for the plugin use.
 	//	shows the hot keys that are unset
 	}
 

@@ -14,9 +14,22 @@ export function getAllCommandsFromPlugin(app: App) {
   );
 
   if (myPluginCommands.length > 0) {
+    console.log(myPluginCommands);
+
+    // Acessando a propriedade 'hotkeys' de cada comando
+    myPluginCommands.forEach(command => {
+      if (command.hotkeys && command.hotkeys.length > 0) {
+        console.log(`Comando: ${command.id} - Keybindings:`, command.hotkeys);
+      } else {
+        console.log(`Comando: ${command.id} - Sem keybindings`);
+      }
+    });
+
     const modal = new HotkeysModal(app, myPluginCommands);
     modal.open();
   } else {
     console.log("Nenhum comando do plugin encontrado.");
-  }}
+  }
+}
+
 

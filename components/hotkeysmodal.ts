@@ -1,5 +1,5 @@
 import { App, Modal } from 'obsidian';
-
+import {PLUGIN_ID} from "../utils/consts";
 export class HotkeysModal extends Modal {
   private commands: any[];
 
@@ -13,18 +13,24 @@ export class HotkeysModal extends Modal {
 
     contentEl.createEl('h2', { text: 'Hotkeys for ProjectFlow' });
 
+
     contentEl.createEl('p', {
-      text: 'Configurar atalhos para o uso eficiente do plugin. Aqui estão os comandos disponíveis:',
+      text: 'For the optmal use of the project flow Plugin, you need to set all the keybinds',
     });
 
+    contentEl.createEl('p', {
+      text: 'Go to the settings\n->Hotkeys\n->search for ProjectFlow\n-> and set them up:',
+    });
     this.commands.forEach((command) => {
       const commandContainer = contentEl.createEl('div', { cls: 'command-container' });
 
-      commandContainer.createEl('span', { text: command.name, cls: 'command-name' });
+      const cleanName = command.name.replace(`${PLUGIN_ID}: `, '');
 
-      commandContainer.createEl('span', { text: ` (ID: ${command.id})`, cls: 'command-id' });
-    });
-  }
+      const symbol = commandContainer.createEl('span', { cls: 'command-symbol' });
+      symbol.innerText = '⌨️ '; // Substitua por outros símbolos, como 🛠️, ⭐, etc.
+
+     const name = commandContainer.createEl('span', { text: cleanName, cls: 'command-name' });    });
+	} 
 
   onClose() {
     const { contentEl } = this;

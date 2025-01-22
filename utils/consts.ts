@@ -1,1 +1,1 @@
-export const PLUGIN_ID = 'Project-Flow';
+export const PLUGIN_ID = 'ProjectFlow';

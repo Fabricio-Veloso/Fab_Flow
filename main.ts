@@ -2,7 +2,7 @@ import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Set
 import {mainModal} from './components/startmoda'
 import {ProjectFlowInit} from './utils/initialization/projectflowinit'
 import {registerAllCommands} from "./utils/initialization/registerAllCommands"
-
+import {getAllCommandsFromPlugin} from "./utils/commands/commandsUtils/getAllCommandsFromPlugin";
 interface ProjectFlowSettings {
 	isSetupDone: boolean;
 	mySetting:string;
@@ -29,6 +29,7 @@ export default class ProjectFlow extends Plugin {
 			this.settings.isSetupDone = true;
 			await this.saveSettings();
 			registerAllCommands(this);
+			getAllCommandsFromPlugin();
 		});
 	}
 

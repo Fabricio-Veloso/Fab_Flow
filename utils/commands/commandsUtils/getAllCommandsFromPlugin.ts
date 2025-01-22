@@ -1,18 +1,22 @@
-import {App} from 'obsidian'
-import {Plugin} from "obsidian";
-import {PLUGIN_ID} from "../../consts";
 
-export function getAllCommandsFromPlugin() {
+import { App } from 'obsidian';
+import { PLUGIN_ID } from '../../consts';
+import { HotkeysModal } from '../../../components/hotkeysmodal';
 
-  const myPluginCommands = Object.values(app.commands.commands).filter(command => command.id.startsWith(`ProjectFlow:${PLUGIN_ID}`))
-  
-  // Exibe os comandos no console
+export function getAllCommandsFromPlugin(app: App) {
+  if (!app.commands || !app.commands.commands) {
+    console.error("Comandos do aplicativo ainda não estão disponíveis.");
+    return;
+  }
+
+  const myPluginCommands = Object.values(app.commands.commands).filter((command) =>
+    command.id.startsWith(`ProjectFlow:${PLUGIN_ID}`)
+  );
+
   if (myPluginCommands.length > 0) {
-    console.log("Comandos do Plugin:");
-    myPluginCommands.forEach(command => {
-      console.log(`ID: ${command.id}, Nome: ${command.name}`);
-    });
+    const modal = new HotkeysModal(app, myPluginCommands);
+    modal.open();
   } else {
     console.log("Nenhum comando do plugin encontrado.");
-  }
-}
+  }}
+

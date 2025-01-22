@@ -28,8 +28,10 @@ export default class ProjectFlow extends Plugin {
 			console.log(' the initialization was a succes');
 			this.settings.isSetupDone = true;
 			await this.saveSettings();
-			registerAllCommands(this);
-			getAllCommandsFromPlugin();
+			this.app.workspace.onLayoutReady(() => {
+				registerAllCommands(this);
+				getAllCommandsFromPlugin(this.app);
+			});
 		});
 	}
 

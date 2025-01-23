@@ -28,8 +28,9 @@ export function getAllCommandsFromPlugin(app: App) {
     const modal = new HotkeysModal(app, myPluginCommands);
     modal.open();
   } else {
-    console.log("Nenhum comando do plugin encontrado.");
+    console.log("Nenhum comando do plugin encontrado."); 
   }
+	
 }
 
 

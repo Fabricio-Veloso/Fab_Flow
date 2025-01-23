@@ -24,8 +24,7 @@ export default class ProjectFlow extends Plugin {
 		this.addSettingTab(new ProjectFlowMainSettingTab(this.app, this));
 		
 		this.app.workspace.onLayoutReady(async() => {
-
-			await ProjectFlowInit(currentVault,this.settings.isSetupDone);
+		await ProjectFlowInit(currentVault,this.settings.isSetupDone);
 			console.log(' the initialization was a succes');
 			this.settings.isSetupDone = true;
 			await this.saveSettings();

@@ -1,7 +1,7 @@
 
 import { App } from 'obsidian';
 import { PLUGIN_ID } from '../../consts';
-import { HotkeysModal } from '../../../components/hotkeysmodal';
+import { HotkeysModal } from '../../../components/modals/hotkeysmodal';
 
 export function getAllCommandsFromPlugin(app: App) {
   if (!app.commands || !app.commands.commands) {

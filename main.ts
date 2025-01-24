@@ -1,4 +1,5 @@
 import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
+import {registerAllViews} from "utils/initialization/registerAllViews";
 import {mainModal} from './components/startmoda'
 import {ProjectFlowInit} from './utils/initialization/projectflowinit'
 import {registerAllCommands} from "./utils/initialization/registerAllCommands"
@@ -22,17 +23,16 @@ export default class ProjectFlow extends Plugin {
 		let currentVault = this.app.vault;
 		await this.loadSettings();
 		this.addSettingTab(new ProjectFlowMainSettingTab(this.app, this));
-		
+		registerAllViews(this);		
+
 		this.app.workspace.onLayoutReady(async() => {
 		await ProjectFlowInit(currentVault,this.settings.isSetupDone);
 			console.log(' the initialization was a succes');
 			this.settings.isSetupDone = true;
 			await this.saveSettings();
-			this.app.workspace.onLayoutReady(() => {
 				registerAllCommands(this);
 				getAllCommandsFromPlugin(this.app);
 				getPluginHotkeys(this.app); 
-			});
 		});
 	}
 

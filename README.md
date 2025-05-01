@@ -1,110 +1,118 @@
-# Introducing Project-Flow
+# 🚀 Project-Flow
+
+**Systematic project structure generation + activity tracking + metadata logging for real planning**
+
+---
+
+## 🎯 Objective
 
 This project aims to create tools to:
 
-1. Build and generate project structures in a systematic and modular way.
-2. Make it easier and more dynamic to:
-    1. Organize and inject status updates, checkpoints, and accomplishments related to activities and projects.
-    2. Track time investment on activities in an organized manner.
-    3. Log all the above elements in a structured and accessible way.
-    4. Use the entire flow to generate useful metadata for future planning and decision-making.
+1. 🏗️ Build and generate project structures in a **systematic** and **modular** way.
+2. ♻️ Make it easier and more dynamic to:
+    - ✅ Organize and inject **status**, **checkpoints**, and **accomplishments** for activities and projects.
+    - ⏱️ Track **time investment** on activities in an organized manner.
+    - 🗂️ Log all the above in a **structured** and **easy-to-find** format.
+    - 📊 Generate **metadata** from this flow for **future planning** and **decision-making**.
 
 ---
 
-## Requirements
+## 💻 Requirements
 
-- Installed:
-    - Git
-    - Obsidian
-    - NPM
+Make sure you have the following installed:
+
+- 🧠 [Obsidian](https://obsidian.md/)
+- 🐙 Git
+- 📦 NPM
 
 ---
 
-## Features
+## ✨ Features
 
-### Create Project _Command_ (~~DONE~~)
+### 🧱 `Create Project` Command (~~DONE~~)
 
-- This command opens modals to capture the project's name and scope, followed by another modal for defining project activities.
-- You should fill in the field for the area/column name (e.g., in an IT project: Documentation, Database, or Design).
-- Then, provide the details of the first activity:
-    - _Only the name and type are required_.
-    - Name
-    - Type (Simple or Complex)
-    - Context
-    - Files (e.g., links to web pages or relevant content)
-    - Objectives
-    - Roadmap
-- You can then save that activity to the corresponding column.
-- Add more activities to that column, create the next column, or save and generate the full project structure.
+- Launches modals to capture the **project name** and **scope**, followed by activity definition.
+- You must fill in the **area/column name** (e.g., _Documentation_, _Database_, or _Design_).
+- Then define the first activity:
+    - ⚠️ _Only_ `name` and `type` are **required**.
+    - 🏷️ Name
+    - 🔧 Type (Simple or Complex)
+    - 📎 Context
+    - 🔗 Files (e.g., relevant links or references)
+    - 🎯 Objectives
+    - 🗺️ Roadmap
+- You can then:
+    - ➕ Add more activities to the column
+    - ➕ Create a new column
+    - 💾 Save and generate the full project structure
 
-#### As a result:
+#### ✅ Generated Structure Includes:
 
-The structure includes:
-
-- Folders for:
-    - Scope
-    - Active Projects
-    - The created project
-    - All the cards representing the project activities (stored in a folder named `"Notes from Cards"`)
-- A note titled `"ProjectName"_h`:
-    - This acts as the project's **header**, containing:
+- 📁 Folders for:
+    - `Scope/`
+    - `Active Projects/`
+    - `[Project Name]/`
+    - `Notes from Cards/` (activity cards)
+- 📝 A note titled: `ProjectName_h`
+    - Acts as the **project header**, containing:
         - Status
         - Files
         - Context
         - Objectives
         - Roadmap
-- A Kanban board that includes:
-    - All activities represented as Kanban cards in their respective areas/columns
-    - Each card linked to a note in the `"Notes from Cards"` folder, containing the respective headers with all filled information
-    - [ ] (Add a screenshot here)
+- 🗂️ A **Kanban board**:
+    - Activities appear as **cards** in their respective **columns**
+    - Each card links to a note in `"Notes from Cards"` with all filled information
+    - [ ] _(Insert screenshot here)_
 
 ---
 
-### "Landing Page" Model (_LPM_) — _(Consider renaming?)_ (TODO)
+### 🧭 “Landing Page” Model (_LPM_) (📌 Rename suggestion pending)
 
-- When opening Obsidian with the Fab-Flow plugin enabled:
-    - A modal showing pending activities appears, allowing you to select which ones to work on.
-    - You use a Google Calendar–style interface to allocate time slots for those activities.
-    - This step ends when you click a button to "Start Session" (or similar).
-
----
-
-### (No name yet — _Flow State Flux_?) (_FSF_) (TODO)
-
-- While working on selected activities, a timer runs in the background.
-- You can use hotkeys to quickly make notes, which are automatically added to the `status` section of that activity's note.
-- When the chosen time ends, FSF pauses and waits for your next action.
-
-#### Upon return:
-
-- **If** you return shortly after time ends:
-    - You can choose to:
-        - Move to the next activity after registering time invested (or skipping the log).
-        - Extend the current activity by defined periods (e.g., "I want to invest 15 more minutes on this").
-        - In any case, you're prompted to register what was done. The entry is saved in the activity’s status section.
-- **If** you return long after the timer ends:
-    - You’re still prompted to register what was done.
-    - If there was a large period of inactivity, you can allocate that time to different activities and write logs accordingly.
-- **Any unallocated time is marked as "dead time"**.
+- When opening Obsidian with **Fab-Flow Plugin** enabled:
+    - A modal with pending activities appears.
+    - Activities can be assigned to **time slots** using a Google Calendar–style interface.
+    - Ends with a “Start Realizing” button (or similar).
 
 ---
 
-## TODO
+### 🌊 Flow State Flux (_FSF_) (📌 Name suggestion pending)
 
-- [ ] Allow creation of activities independently by selecting scope, project, and area/column. (**Must**)
-- [ ] Allow saving a column without automatically creating a new one. (**Must**)
-- [ ] Allow tagging dead time with other labels such as "pause", "rest", etc. (**Must**)
-- [ ] Enable fast registration for activities that were **not** selected in the LPM.
-- [ ] Allow inserting reminders through the activity timers (e.g., “Yoga Time”).
-- [ ] Add support for multiple languages.
-- [ ] Provide a user-friendly UI to define custom project modules (simple folder structures should be easy to build; complex logic might not be).
-- [ ] Add animations for some UI elements (nice to have, but low priority).
+- While executing selected activities, a timer runs in the background.
+- ⌨️ Hotkeys allow rapid notes that go directly to the `status` field of the activity’s note.
+- ⏹️ When the timer ends, FSF halts and waits for next user input.
+
+#### Upon returning to FSF:
+
+- **If return is quick:**
+    - User may:
+        - Move to the **next activity** (after logging or skipping)
+        - Overflow time for the current activity (_in defined periods_)
+        - In all cases, a **log entry is required** and goes to the activity’s `status`
+- **If return is late:**
+    - Prompted to log what was done
+    - If needed, user can **reallocate** past time across multiple activities and write logs
+- ⏳ Time not allocated to any activity is recorded as **dead time**
 
 ---
 
-### Notes
+## ✅ TODO
 
-- %% I'd like to include the actual structure used in this project so anyone can follow along — but all my logs are currently in Portuguese. Maybe one day. %%
-- %% Yes, much of the plugin’s current text is in Portuguese (but it's being translated). %%
-- _NOBODY IS RESPONSIBLE FOR ANY DAMAGE TO YOU OR YOUR VAULTS WHILE USING THIS PLUGIN._
-  ee https://github.com/obsidianmd/obsidian-api
+- [ ] 🧩 Allow creation of standalone activities (choose scope, project, and column) **(Must)**
+- [ ] 🔁 Allow saving a column without automatically creating the next one **(Must)**
+- [ ] 🕐 Allow tagging "dead time" with alternative labels (pause, rest, etc.) **(Must)**
+- [ ] ⚡ Quick register system for non-LPM activities
+- [ ] ⏰ Insert reminders into activity timers (e.g., "Yoga Time")
+- [ ] 🌐 Add multi-language support
+- [ ] 🧱 GUI to create custom project modules (folder structures, templates, etc.)
+- [ ] 🎞️ UI animations for better user feedback _(Low priority)_
+
+---
+
+## 📝 Notes
+
+> %% I'd like to include the actual folder structure of this project so people can follow along — but all logs are in Portuguese for now. Maybe someday. %%  
+> %% Yes, much of the plugin’s current content is in Portuguese (it's being translated). %%
+
+⚠️ _NOBODY IS RESPONSIBLE FOR ANY DAMAGE TO YOU OR YOUR VAULTS WHILE USING THIS PLUGIN_  
+ ee https://github.com/obsidianmd/obsidian-api

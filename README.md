@@ -1,94 +1,110 @@
-# Obsidian Sample Plugin
+# Introducing Project-Flow
 
-This is a sample plugin for Obsidian (https://obsidian.md).
+This project aims to create tools to:
 
-This project uses TypeScript to provide type checking and documentation.
-The repo depends on the latest plugin API (obsidian.d.ts) in TypeScript Definition format, which contains TSDoc comments describing what it does.
+1. Build and generate project structures in a systematic and modular way.
+2. Make it easier and more dynamic to:
+    1. Organize and inject status updates, checkpoints, and accomplishments related to activities and projects.
+    2. Track time investment on activities in an organized manner.
+    3. Log all the above elements in a structured and accessible way.
+    4. Use the entire flow to generate useful metadata for future planning and decision-making.
 
-This sample plugin demonstrates some of the basic functionality the plugin API can do.
-- Adds a ribbon icon, which shows a Notice when clicked.
-- Adds a command "Open Sample Modal" which opens a Modal.
-- Adds a plugin setting tab to the settings page.
-- Registers a global click event and output 'click' to the console.
-- Registers a global interval which logs 'setInterval' to the console.
+---
 
-## First time developing plugins?
+## Requirements
 
-Quick starting guide for new plugin devs:
+- Installed:
+    - Git
+    - Obsidian
+    - NPM
 
-- Check if [someone already developed a plugin for what you want](https://obsidian.md/plugins)! There might be an existing plugin similar enough that you can partner up with.
-- Make a copy of this repo as a template with the "Use this template" button (login to GitHub if you don't see it).
-- Clone your repo to a local development folder. For convenience, you can place this folder in your `.obsidian/plugins/your-plugin-name` folder.
-- Install NodeJS, then run `npm i` in the command line under your repo folder.
-- Run `npm run dev` to compile your plugin from `main.ts` to `main.js`.
-- Make changes to `main.ts` (or create new `.ts` files). Those changes should be automatically compiled into `main.js`.
-- Reload Obsidian to load the new version of your plugin.
-- Enable plugin in settings window.
-- For updates to the Obsidian API run `npm update` in the command line under your repo folder.
+---
 
-## Releasing new releases
+## Features
 
-- Update your `manifest.json` with your new version number, such as `1.0.1`, and the minimum Obsidian version required for your latest release.
-- Update your `versions.json` file with `"new-plugin-version": "minimum-obsidian-version"` so older versions of Obsidian can download an older version of your plugin that's compatible.
-- Create new GitHub release using your new version number as the "Tag version". Use the exact version number, don't include a prefix `v`. See here for an example: https://github.com/obsidianmd/obsidian-sample-plugin/releases
-- Upload the files `manifest.json`, `main.js`, `styles.css` as binary attachments. Note: The manifest.json file must be in two places, first the root path of your repository and also in the release.
-- Publish the release.
+### Create Project _Command_ (~~DONE~~)
 
-> You can simplify the version bump process by running `npm version patch`, `npm version minor` or `npm version major` after updating `minAppVersion` manually in `manifest.json`.
-> The command will bump version in `manifest.json` and `package.json`, and add the entry for the new version to `versions.json`
+- This command opens modals to capture the project's name and scope, followed by another modal for defining project activities.
+- You should fill in the field for the area/column name (e.g., in an IT project: Documentation, Database, or Design).
+- Then, provide the details of the first activity:
+    - _Only the name and type are required_.
+    - Name
+    - Type (Simple or Complex)
+    - Context
+    - Files (e.g., links to web pages or relevant content)
+    - Objectives
+    - Roadmap
+- You can then save that activity to the corresponding column.
+- Add more activities to that column, create the next column, or save and generate the full project structure.
 
-## Adding your plugin to the community plugin list
+#### As a result:
 
-- Check the [plugin guidelines](https://docs.obsidian.md/Plugins/Releasing/Plugin+guidelines).
-- Publish an initial version.
-- Make sure you have a `README.md` file in the root of your repo.
-- Make a pull request at https://github.com/obsidianmd/obsidian-releases to add your plugin.
+The structure includes:
 
-## How to use
+- Folders for:
+    - Scope
+    - Active Projects
+    - The created project
+    - All the cards representing the project activities (stored in a folder named `"Notes from Cards"`)
+- A note titled `"ProjectName"_h`:
+    - This acts as the project's **header**, containing:
+        - Status
+        - Files
+        - Context
+        - Objectives
+        - Roadmap
+- A Kanban board that includes:
+    - All activities represented as Kanban cards in their respective areas/columns
+    - Each card linked to a note in the `"Notes from Cards"` folder, containing the respective headers with all filled information
+    - [ ] (Add a screenshot here)
 
-- Clone this repo.
-- Make sure your NodeJS is at least v16 (`node --version`).
-- `npm i` or `yarn` to install dependencies.
-- `npm run dev` to start compilation in watch mode.
+---
 
-## Manually installing the plugin
+### "Landing Page" Model (_LPM_) — _(Consider renaming?)_ (TODO)
 
-- Copy over `main.js`, `styles.css`, `manifest.json` to your vault `VaultFolder/.obsidian/plugins/your-plugin-id/`.
+- When opening Obsidian with the Fab-Flow plugin enabled:
+    - A modal showing pending activities appears, allowing you to select which ones to work on.
+    - You use a Google Calendar–style interface to allocate time slots for those activities.
+    - This step ends when you click a button to "Start Session" (or similar).
 
-## Improve code quality with eslint (optional)
-- [ESLint](https://eslint.org/) is a tool that analyzes your code to quickly find problems. You can run ESLint against your plugin to find common bugs and ways to improve your code. 
-- To use eslint with this project, make sure to install eslint from terminal:
-  - `npm install -g eslint`
-- To use eslint to analyze this project use this command:
-  - `eslint main.ts`
-  - eslint will then create a report with suggestions for code improvement by file and line number.
-- If your source code is in a folder, such as `src`, you can use eslint with this command to analyze all files in that folder:
-  - `eslint .\src\`
+---
 
-## Funding URL
+### (No name yet — _Flow State Flux_?) (_FSF_) (TODO)
 
-You can include funding URLs where people who use your plugin can financially support it.
+- While working on selected activities, a timer runs in the background.
+- You can use hotkeys to quickly make notes, which are automatically added to the `status` section of that activity's note.
+- When the chosen time ends, FSF pauses and waits for your next action.
 
-The simple way is to set the `fundingUrl` field to your link in your `manifest.json` file:
+#### Upon return:
 
-```json
-{
-    "fundingUrl": "https://buymeacoffee.com"
-}
-```
+- **If** you return shortly after time ends:
+    - You can choose to:
+        - Move to the next activity after registering time invested (or skipping the log).
+        - Extend the current activity by defined periods (e.g., "I want to invest 15 more minutes on this").
+        - In any case, you're prompted to register what was done. The entry is saved in the activity’s status section.
+- **If** you return long after the timer ends:
+    - You’re still prompted to register what was done.
+    - If there was a large period of inactivity, you can allocate that time to different activities and write logs accordingly.
+- **Any unallocated time is marked as "dead time"**.
 
-If you have multiple URLs, you can also do:
+---
 
-```json
-{
-    "fundingUrl": {
-        "Buy Me a Coffee": "https://buymeacoffee.com",
-        "GitHub Sponsor": "https://github.com/sponsors",
-        "Patreon": "https://www.patreon.com/"
-    }
-}
-```
+## TODO
 
-## API Documentation
+- [ ] Allow creation of activities independently by selecting scope, project, and area/column. (**Must**)
+- [ ] Allow saving a column without automatically creating a new one. (**Must**)
+- [ ] Allow tagging dead time with other labels such as "pause", "rest", etc. (**Must**)
+- [ ] Enable fast registration for activities that were **not** selected in the LPM.
+- [ ] Allow inserting reminders through the activity timers (e.g., “Yoga Time”).
+- [ ] Add support for multiple languages.
+- [ ] Provide a user-friendly UI to define custom project modules (simple folder structures should be easy to build; complex logic might not be).
+- [ ] Add animations for some UI elements (nice to have, but low priority).
 
-See https://github.com/obsidianmd/obsidian-api
+---
+
+### Notes
+
+- %% I'd like to include the actual structure used in this project so anyone can follow along — but all my logs are currently in Portuguese. Maybe one day. %%
+- %% Yes, much of the plugin’s current text is in Portuguese (but it's being translated). %%
+- _NOBODY IS RESPONSIBLE FOR ANY DAMAGE TO YOU OR YOUR VAULTS WHILE USING THIS PLUGIN._
+  ee https://github.com/obsidianmd/obsidian-api

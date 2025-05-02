@@ -106,6 +106,10 @@ Make sure you have the following installed:
 - [ ] 🌐 Add multi-language support
 - [ ] 🧱 GUI to create custom project modules (folder structures, templates, etc.)
 - [ ] 🎞️ UI animations for better user feedback _(Low priority)_
+- [ ] Make a Docker File for ease testing.
+- [ ] Make ascript or todo to explain how to install and use the plugin.
+- [ ] Create a button for "import file as header" in the CreateProject flux.(would alow a lot of control to the user already)
+- [ ] Make possible to link activities to repos to link commits in to activities timesspams.
 
 ---
 

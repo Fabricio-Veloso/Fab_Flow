@@ -1,6 +1,5 @@
 import { App, normalizePath } from "obsidian";
 import { ColumnData, ActivityData} from "../../components/modals/projectBoardBuilderModal";
-import { ROOT_DIR } from "../consts";
 import {
   getBaseProjectPath,
   getBoardPath,

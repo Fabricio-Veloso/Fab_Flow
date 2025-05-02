@@ -53,30 +53,30 @@ export class ProjectBoardBuilderModal extends Modal {
 		const { contentEl } = this;
 		contentEl.empty();
 
-		contentEl.createEl("h2", { text: `Atividades da Coluna: ${this.currentColumnName}` });
+		contentEl.createEl("h2", { text: `Column Activities: ${this.currentColumnName}` });
 
 		let activityName = "";
 		let isComplex = false;
-		let andamento = "", arquivos = "", contexto = "", roadmap = "";
+		let status = "", files = "", context = "", roadmap = "";
 
-		new Setting(contentEl).setName("Nome da Atividade")
+		new Setting(contentEl).setName("Activitie's Name")
 			.addText(text => text.onChange(val => activityName = val));
 
-		new Setting(contentEl).setName("Tipo")
+		new Setting(contentEl).setName("Type")
 			.addDropdown(drop => {
 				drop.addOption("simples", "Simples");
 				drop.addOption("complexa", "Complexa");
 				drop.onChange(value => isComplex = value === "complexa");
 			});
 
-		new Setting(contentEl).setName("Andamento")
-			.addText(text => text.onChange(val => andamento = val));
+		new Setting(contentEl).setName("Status")
+			.addText(text => text.onChange(val => status = val));
 
-		new Setting(contentEl).setName("Arquivos")
-			.addText(text => text.onChange(val => arquivos = val));
+		new Setting(contentEl).setName("Files")
+			.addText(text => text.onChange(val => files = val));
 
-		new Setting(contentEl).setName("Preâmbulo / Contexto")
-			.addTextArea(text => text.onChange(val => contexto = val));
+		new Setting(contentEl).setName("Context")
+			.addTextArea(text => text.onChange(val => context = val));
 
 		new Setting(contentEl).setName("Roadmap")
 			.addTextArea(text => text.onChange(val => roadmap = val));
@@ -90,9 +90,9 @@ export class ProjectBoardBuilderModal extends Modal {
 						this.currentActivities.push({
 							name: activityName,
 							type: isComplex ? "complexa" : "simples",
-							andamento,
-							arquivos,
-							contexto,
+							status,
+							files,
+							context,
 							roadmap
 						});
 
@@ -101,14 +101,14 @@ export class ProjectBoardBuilderModal extends Modal {
 			});
 
 		// Preview das atividades até o momento
-		contentEl.createEl("h3", { text: "Atividades adicionadas:" });
+		contentEl.createEl("h3", { text: "Added Activities:" });
 		this.currentActivities.forEach((a, i) => {
 			contentEl.createEl("p", { text: `${i + 1}. ${a.name} (${a.type})` });
 		});
 
 		new Setting(contentEl)
 			.addButton(btn => {
-				btn.setButtonText("Salvar Coluna")
+				btn.setButtonText("Save Collumn")
 					.setCta()
 					.onClick(() => {
 						this.columns.push({

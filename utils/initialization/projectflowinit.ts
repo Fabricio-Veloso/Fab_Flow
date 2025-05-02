@@ -7,7 +7,7 @@ import {checkSetupReady} from './checksetupready'
 export async function ProjectFlowInit(currentVault:Vault,isSetupDone:boolean){
 
 	const coreAssets = {
-	  mainFolderPath:    './projectFlow',
+	  mainFolderPath:    './project-Flow',
 	};
 	
 	let coreAssetsDictionary: { [key: string]: Asset } = {};

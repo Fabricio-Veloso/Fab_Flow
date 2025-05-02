@@ -2,7 +2,7 @@ import {  Modal, Setting, TextComponent } from "obsidian";
 
 export interface ActivityData {
 	name: string;
-	type: "simples" | "complexa";
+	isComplex: boolean;
 	status?: string;
 	files?: string;
 	context?: string;
@@ -89,7 +89,7 @@ export class ProjectBoardBuilderModal extends Modal {
 
 						this.currentActivities.push({
 							name: activityName,
-							type: isComplex ? "complexa" : "simples",
+							isComplex,
 							status,
 							files,
 							context,
@@ -101,9 +101,9 @@ export class ProjectBoardBuilderModal extends Modal {
 			});
 
 		// Preview das atividades até o momento
-		contentEl.createEl("h3", { text: "Added Activities:" });
 		this.currentActivities.forEach((a, i) => {
-			contentEl.createEl("p", { text: `${i + 1}. ${a.name} (${a.type})` });
+			const typeLabel = a.isComplex ? "Complexa" : "Simples";
+			contentEl.createEl("p", { text: `${i + 1}. ${a.name} (${typeLabel})` });
 		});
 
 		new Setting(contentEl)

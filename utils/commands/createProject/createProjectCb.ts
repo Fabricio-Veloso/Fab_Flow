@@ -16,11 +16,11 @@ export async function createProjectCb(app: App) {
 
 	const activities = board.flatMap(col =>
 		col.activities.map(act => ({
-			title: act.name,
+			name: act.name,
 			type: act.type === "complexa" ? "complex" : "simple",
-			status: act.andamento,
-			files: act.arquivos,
-			context: act.contexto,
+			status: act.status,
+			files: act.files,
+			context: act.context,
 			roadmap: act.roadmap,
 		}))
 	);

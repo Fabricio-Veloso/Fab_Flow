@@ -1,9 +1,8 @@
 import { App} from "obsidian";
 import { projectInfoModal } from "../../../components/modals/projectInfoModal";
-import { createProjectStructure } from "./utilsCreateProject/projectStructure";
 import {ProjectBoardBuilderModal } from "../../../components/modals/projectBoardBuilderModal";
-import {generateBoardAndNotes} from "./utilsCreateProject/generateBoardAndNotes";
-
+import {generateKanbanBoardAndNotes} from "./utilsCreateProject/generateProjectKanbanBoardAndNotes";
+import {generateProjectHeaderNote} from "./utilsCreateProject/generateProjectHeaderNote";
 
 export async function createProjectCb(app: App) {
 	const infoModal = new projectInfoModal(app);
@@ -17,19 +16,24 @@ export async function createProjectCb(app: App) {
 	const activities = board.flatMap(col =>
 		col.activities.map(act => ({
 			name: act.name,
-			type: act.type === "complexa" ? "complex" : "simple",
+			isComplex: act.isComplex,
 			status: act.status,
 			files: act.files,
 			context: act.context,
 			roadmap: act.roadmap,
 		}))
 	);
-
-	await generateBoardAndNotes(app, {
-		projectName: projectInfo.projectName,
-		projectScope: projectInfo.projectScope,
-		board,
-		activities
+	await generateProjectHeaderNote(app, {
+	  projectName: projectInfo.projectName,
+	  projectScope: projectInfo.projectScope,
+	  activities
 	});
+
+	await generateKanbanBoardAndNotes(app, {
+	  projectName: projectInfo.projectName,
+	  projectScope: projectInfo.projectScope,
+	  board
+	});
+
 }
 

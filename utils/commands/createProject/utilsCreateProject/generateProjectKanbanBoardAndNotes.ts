@@ -1,31 +1,30 @@
 import { App, normalizePath } from "obsidian";
-import { ColumnData, ActivityData} from "../../../../components/modals/projectBoardBuilderModal";
+import { ColumnData} from "../../../../components/modals/projectBoardBuilderModal";
 import {
   getBaseProjectPath,
   getBoardPath,
   getNotesFolderPath,
 } from "../../../core/resolvePathsFunctions";
+import {generateActivityNoteContent } from "./generateActivityNoteContent";
+import {ensureFolderExists,} from "../../../core/ensureFolderExists";
+import {createFileIfNotExists} from "../../../core/createFileIfNotExists";
 
-
-export async function generateBoardAndNotes(
+export async function generateKanbanBoardAndNotes(
   app: App,
   {
     projectName,
     projectScope,
-    board,
-    activities
+    board
   }: {
     projectName: string;
     projectScope: string;
     board: ColumnData[];
-    activities: ActivityData[];
   }
 ) {
-	const basePath = getBaseProjectPath(projectScope, projectName);
-	const boardPath = getBoardPath(projectScope, projectName);
-	const notesFolderPath = getNotesFolderPath(projectScope, projectName);
+  const basePath = getBaseProjectPath(projectScope, projectName);
+  const boardPath = getBoardPath(projectScope, projectName);
+  const notesFolderPath = getNotesFolderPath(projectScope, projectName);
 
-	/*Move this to a separeted function*/
   await ensureFolderExists(app, notesFolderPath);
 
   let boardContent = "---\nkanban-plugin: board\n---\n";
@@ -35,7 +34,7 @@ export async function generateBoardAndNotes(
 
     for (const activity of column.activities) {
       const noteTitle = activity.name;
-      const isComplex = activity.type === "complexa";
+      const isComplex = activity.isComplex;
       const noteFileName = `${noteTitle}.md`;
       const notePath = normalizePath(`${notesFolderPath}/${noteFileName}`);
 
@@ -56,31 +55,10 @@ export async function generateBoardAndNotes(
         await createFileIfNotExists(app, complexBoardPath, emptySubboard);
       }
     }
+
     boardContent += "\n";
   }
 
   await createFileIfNotExists(app, boardPath, boardContent);
-}
-//MOve this to a separeted function
-function generateActivityNoteContent(activity: ActivityData): string {
-  return `# Status\n${activity.status || ""}\n\n# Files\n${activity.files || ""}\n\n# Context\n${activity.context || ""}\n\n# Roadmap\n${activity.roadmap || ""}`;
-}
-//Move this to the utils function folder and import them.
-async function ensureFolderExists(app: App, path: string): Promise<void> {
-  const folders = path.split("/");
-  let currentPath = "";
-
-  for (const folder of folders) {
-    currentPath += (currentPath ? "/" : "") + folder;
-    if (!app.vault.getAbstractFileByPath(currentPath)) {
-      await app.vault.createFolder(currentPath);
-    }
-  }
-}
-
-async function createFileIfNotExists(app: App, path: string, content: string): Promise<void> {
-  if (!app.vault.getAbstractFileByPath(path)) {
-    await app.vault.create(path, content);
-  }
 }
 

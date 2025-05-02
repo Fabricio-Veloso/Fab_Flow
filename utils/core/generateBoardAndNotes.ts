@@ -1,6 +1,13 @@
 import { App, normalizePath } from "obsidian";
 import { ColumnData, ActivityData} from "../../components/modals/projectBoardBuilderModal";
 import { ROOT_DIR } from "../consts";
+import {
+  getBaseProjectPath,
+  getBoardPath,
+  getNotesFolderPath,
+} from "./resolvePathsFunctions";
+
+
 export async function generateBoardAndNotes(
   app: App,
   {
@@ -15,10 +22,11 @@ export async function generateBoardAndNotes(
     activities: ActivityData[];
   }
 ) {
-  const basePath = normalizePath(`${ROOT_DIR}/${projectScope}/projetos/ativos/${projectName}`);
-  const boardPath = normalizePath(`${basePath}/${projectName}_b.md`);
-  const notesFolderPath = normalizePath(`${basePath}/notes from cards_${projectName}`);
+	const basePath = getBaseProjectPath(projectScope, projectName);
+	const boardPath = getBoardPath(projectScope, projectName);
+	const notesFolderPath = getNotesFolderPath(projectScope, projectName);
 
+	/*Move this to a separeted function*/
   await ensureFolderExists(app, notesFolderPath);
 
   let boardContent = "---\nkanban-plugin: board\n---\n";
@@ -54,11 +62,11 @@ export async function generateBoardAndNotes(
 
   await createFileIfNotExists(app, boardPath, boardContent);
 }
-
+//MOve this to a separeted function
 function generateActivityNoteContent(activity: ActivityData): string {
-  return `# Andamento\n${activity.status || ""}\n\n# Arquivos\n${activity.files || ""}\n\n# Contexto\n${activity.context || ""}\n\n# Roadmap\n${activity.roadmap || ""}`;
+  return `# Status\n${activity.status || ""}\n\n# Files\n${activity.files || ""}\n\n# Context\n${activity.context || ""}\n\n# Roadmap\n${activity.roadmap || ""}`;
 }
-
+//Move this to the utils function folder and import them.
 async function ensureFolderExists(app: App, path: string): Promise<void> {
   const folders = path.split("/");
   let currentPath = "";

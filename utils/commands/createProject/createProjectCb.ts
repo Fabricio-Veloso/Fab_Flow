@@ -1,8 +1,8 @@
-import { App, Notice, Plugin, normalizePath } from "obsidian";
+import { App} from "obsidian";
 import { projectInfoModal } from "../../../components/modals/projectInfoModal";
-import { createProjectStructure } from "../../core/projectStructure";
+import { createProjectStructure } from "./utilsCreateProject/projectStructure";
 import {ProjectBoardBuilderModal } from "../../../components/modals/projectBoardBuilderModal";
-import {generateBoardAndNotes} from "../../core/generateBoardAndNotes";
+import {generateBoardAndNotes} from "./utilsCreateProject/generateBoardAndNotes";
 
 
 export async function createProjectCb(app: App) {

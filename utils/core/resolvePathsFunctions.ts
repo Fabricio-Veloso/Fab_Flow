@@ -9,6 +9,9 @@ export function getBoardPath(projectScope: string, projectName: string): string 
   return normalizePath(`${getBaseProjectPath(projectScope, projectName)}/${projectName}_b.md`);
 }
 
+export function getHeaderNotePath(projectScope: string, projectName: string){
+	return normalizePath(`${getBaseProjectPath(projectScope,projectName)}/${projectScope}_h.md`)
+}
 export function getNotesFolderPath(projectScope: string, projectName: string): string {
   return normalizePath(`${getBaseProjectPath(projectScope, projectName)}/notes from cards_${projectName}`);
 }

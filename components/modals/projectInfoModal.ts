@@ -16,31 +16,31 @@ export class projectInfoModal extends Modal {
 
         // Nome do projeto
         new Setting(contentEl)
-            .setName("Nome do Projeto")
-            .setDesc("Digite o nome do seu projeto")
+            .setName("Project Name")
+            .setDesc("Type Your Project Name")
             .addText(text => text
-                .setPlaceholder('Nome do projeto')
+                .setPlaceholder('Project Name')
                 .onChange(value => this.projectName = value));
 
         // Escopo do projeto
         new Setting(contentEl)
-            .setName("Escopo")
-            .setDesc("Escolha um escopo para o projeto")
+            .setName("Scope")
+            .setDesc("Type a Scope for your Project")
             .addText(text => text
-                .setPlaceholder('Escopo do projeto')
+                .setPlaceholder('Project scope')
                 .onChange(value => this.projectScope = value));
 
         // Botões
         new Setting(contentEl)
             .addButton((button: ButtonComponent) => {
                 button
-                    .setButtonText("Criar")
+                    .setButtonText("Create")
                     .onClick(() => {
                         if (this.projectName && this.projectScope) {
                             this.close();
                             this.resolve({ projectName: this.projectName, projectScope: this.projectScope });
                         } else {
-                            new Notice("Por favor, preencha todos os campos.");
+                            new Notice("Please Fill all Camps");
                         }
                     });
             });

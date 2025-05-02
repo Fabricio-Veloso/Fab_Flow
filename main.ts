@@ -5,6 +5,7 @@ import {ProjectFlowInit} from './utils/initialization/projectflowinit'
 import {registerAllCommands} from "./utils/initialization/registerAllCommands"
 import {getAllCommandsFromPlugin} from "./utils/commands/commandsUtils/getAllCommandsFromPlugin";
 import { getPluginHotkeys } from './utils/commands/commandsUtils/getHotkeysFromUserConfig.ts';
+
 interface ProjectFlowSettings {
 	isSetupDone: boolean;
 	mySetting:string;

@@ -1,15 +1,10 @@
 import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
 import {registerAllViews} from "utils/initialization/registerAllViews";
-import {mainModal} from './components/startmoda'
 import {ProjectFlowInit} from './utils/initialization/projectflowinit'
 import {registerAllCommands} from "./utils/initialization/registerAllCommands"
 import {getAllCommandsFromPlugin} from "./utils/commands/commandsUtils/getAllCommandsFromPlugin";
 import { getPluginHotkeys } from './utils/commands/commandsUtils/getHotkeysFromUserConfig.ts';
-
-interface ProjectFlowSettings {
-	isSetupDone: boolean;
-	mySetting:string;
-}
+import {ProjectFlowSettings} from "./interfaces/projectflowsettings";
 
 const DEFAULT_SETTINGS: ProjectFlowSettings = {
 isSetupDone : false,	

@@ -49,7 +49,7 @@ export class SelectActivityModal extends FuzzySuggestModal<ActivityInfo> {
 	}
 
 	getItemText(item: ActivityInfo): string {
-		return `${item.project} ÔÇ║ ${item.activity}`;
+		return `${item.project}, ${item.activity}`;
 	}
 
 	async onChooseItem(item: ActivityInfo): Promise<void> {
@@ -61,7 +61,6 @@ export class SelectActivityModal extends FuzzySuggestModal<ActivityInfo> {
 		return new Promise(resolve => {
 			this.resolve = resolve;
 
-			// Sele├º├úo autom├ítica se j├í estiver em foco
 			if (this.defaultProject && this.defaultActivity) {
 				const match = this.activities.find(
 					item => item.project === this.defaultProject && item.activity === this.defaultActivity

@@ -1,10 +1,5 @@
 import { App, FuzzySuggestModal, TFile } from "obsidian";
-
-interface ActivityInfo {
-	project: string;
-	activity: string;
-	file: TFile;
-}
+import {ActivityInfo} from "../../interfaces/ActivityInfo";
 
 export class SelectActivityModal extends FuzzySuggestModal<ActivityInfo> {
 	private activities: ActivityInfo[] = [];

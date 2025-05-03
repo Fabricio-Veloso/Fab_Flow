@@ -1,4 +1,5 @@
 import { App, Modal, Setting, TextAreaComponent } from "obsidian";
+import MarkdownPreviewView from "obsidian";
 
 export class MarkdownCommentModal extends Modal {
 	private editorEl: TextAreaComponent;
@@ -21,7 +22,7 @@ export class MarkdownCommentModal extends Modal {
 		this.editorEl = new TextAreaComponent(contentEl);
 		this.editorEl.inputEl.style.width = "100%";
 		this.editorEl.inputEl.style.height = "150px";
-		this.editorEl.inputEl.placeholder = "Escreva seu coment├írio em Markdown...";
+		this.editorEl.inputEl.placeholder = "Escreva seu comentário em Markdown...";
 		this.editorEl.onChange((value) => {
 			this.content = value;
 			this.updatePreview();
@@ -31,7 +32,7 @@ export class MarkdownCommentModal extends Modal {
 		this.previewEl = contentEl.createDiv({ cls: "pf-preview-area" });
 		this.updatePreview();
 
-		// Bot├Áes
+		// Botões
 		new Setting(contentEl)
 			.addButton(btn => btn
 				.setButtonText("Salvar")
@@ -55,7 +56,7 @@ export class MarkdownCommentModal extends Modal {
 	}
 
 	private async updatePreview() {
-		const markdown = this.content || "*Pr├®-visualiza├º├úo do coment├írio aparecer├í aqui...*";
+		const markdown = this.content || "*Pré-visualização do comentário aparecerá aqui...*";
 		const html = await this.app.plugins.getPlugin("markdown").markdownRenderer.renderMarkdown(
 			markdown,
 			this.previewEl,
@@ -73,5 +74,4 @@ export class MarkdownCommentModal extends Modal {
 		});
 	}
 }
-
 

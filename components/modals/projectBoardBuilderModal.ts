@@ -1,13 +1,6 @@
 import {  Modal, Setting, TextComponent } from "obsidian";
+import {ActivityData} from "../../interfaces/activityData";
 
-export interface ActivityData {
-	name: string;
-	isComplex: boolean;
-	status?: string;
-	files?: string;
-	context?: string;
-	roadmap?: string;
-}
 
 export interface ColumnData {
 	name: string;

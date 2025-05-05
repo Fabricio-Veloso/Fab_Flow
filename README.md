@@ -110,6 +110,7 @@ Make sure you have the following installed:
 - [ ] Make ascript or todo to explain how to install and use the plugin.
 - [ ] Create a button for "import file as header" in the CreateProject flux.(would alow a lot of control to the user already)
 - [ ] Make possible to link activities to repos to link commits in to activities timesspams.
+- [ ] Create flux to cleary rememer the last activity and step you where doing last day or interaction, in the LPM in an easy way for the user keep going with it (The user could write a message for itself or use AI.)
 
 ---
 

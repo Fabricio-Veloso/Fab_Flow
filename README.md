@@ -98,20 +98,21 @@ Make sure you have the following installed:
 
 ## ✅ TODO
 
-- [ ] 🧩 Allow creation of standalone activities (choose scope, project, and column) **(Must)**
-- [ ] 🔁 Allow saving a column without automatically creating the next one **(Must)**
-- [ ] 🕐 Allow tagging "dead time" with alternative labels (pause, rest, etc.) **(Must)**
-- [ ] ⚡ Quick register system for non-LPM activities
-- [ ] ⏰ Insert reminders into activity timers (e.g., "Yoga Time")
-- [ ] 🌐 Add multi-language support
-- [ ] 🧱 GUI to create custom project modules (folder structures, templates, etc.)
-- [ ] 🎞️ UI animations for better user feedback _(Low priority)_
-- [ ] Make a Docker File for ease testing.
-- [ ] Make ascript or todo to explain how to install and use the plugin.
-- [ ] Create a button for "import file as header" in the CreateProject flux.(would alow a lot of control to the user already)
-- [ ] Make possible to link activities to repos to link commits in to activities timesspams.
-- [ ] Create flux to cleary rememer the last activity and step you where doing last day or interaction, in the LPM in an easy way for the user keep going with it (The user could write a message for itself or use AI.)
-- [ ] Rethink the way that te plugin retrives info from the user, to bether support big input texts. (Carrousel with swipes mybe?).
+- [ ] **🛠️ Improve CreateProject Command** to handle complex activities with their cards from the board folder.
+- [ ] **🧩 Allow creation of standalone activities** (choose scope, project, and column) **(Must)**
+- [x] **🔁 Allow saving a column without automatically creating the next one** **(Must)**
+- [ ] **🕐 Allow tagging "dead time"** with alternative labels (pause, rest, etc.) **(Must)**
+- [ ] **⚡ Quick registration system for non-LPM activities**
+- [ ] **⏰ Insert reminders into activity timers** (e.g., "Yoga Time")
+- [ ] **🌐 Add multi-language support**
+- [ ] **🧱 GUI to create custom project modules** (folder structures, templates, etc.)
+- [ ] **🎞️ UI animations for better user feedback** _(Low priority)_
+- [ ] **🐳 Create a Dockerfile for easy testing**
+- [ ] **📄 Create a script or TODO to explain how to install and use the plugin**
+- [ ] **🔗 Create a button for "import file as header"** in the CreateProject flow (would allow more control for the user right away)
+- [ ] **🔗 Make it possible to link activities to repositories** to link commits to activity time spans
+- [ ] **📝 Create a flow to clearly remember the last activity and step you were working on last day or interaction** in the LPM, making it easy for the user to continue (the user could write a message for themselves or use AI)
+- [ ] **🔄 Rethink how the plugin retrieves information from the user** to better support large input texts. (Maybe a carousel with swipes?)
 
 ---
 

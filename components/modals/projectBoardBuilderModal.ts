@@ -24,6 +24,7 @@ export class ProjectBoardBuilderModal extends Modal {
 		contentEl.createEl("h2", { text: "Adicionar Coluna ao Quadro" });
 
 		let nameInput: TextComponent;
+
 		new Setting(contentEl)
 			.setName("Nome da Coluna")
 			.addText(text => {
@@ -108,6 +109,17 @@ export class ProjectBoardBuilderModal extends Modal {
 							name: this.currentColumnName,
 							activities: this.currentActivities
 						});
+						this.currentActivities = [];
+						this.currentColumnName = "";
+
+					});
+			});
+
+		new Setting(contentEl)
+			.addButton(btn => {
+				btn.setButtonText("Add new Collumn")
+					.setCta()
+					.onClick(() => {
 						this.currentActivities = [];
 						this.currentColumnName = "";
 						this.drawColumnStep();

@@ -23,15 +23,10 @@ export async function createProjectCb(app: App) {
 			roadmap: act.roadmap,
 		}))
 	);
-	await generateProjectHeaderNote(app, {
-	  projectName: projectInfo.projectName,
-	  projectScope: projectInfo.projectScope,
-	  activities
-	});
+	await generateProjectHeaderNote(app, projectInfo);
 
 	await generateKanbanBoardAndNotes(app, {
-	  projectName: projectInfo.projectName,
-	  projectScope: projectInfo.projectScope,
+	  ...projectInfo,
 	  board
 	});
 

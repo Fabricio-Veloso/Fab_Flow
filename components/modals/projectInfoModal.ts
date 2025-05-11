@@ -1,61 +1,82 @@
 import { App, Modal, Setting,  ButtonComponent, Notice } from "obsidian";
+import {ProjectInfo} from "../../classes/projectInfo";
 
 export class projectInfoModal extends Modal {
-    projectName: string = '';
-    projectScope: string = '';
-    resolve: (data: { projectName: string; projectScope: string } | null) => void = () => {}; // Função para resolver a promise
 
-    constructor(app: App) {
-        super(app);
-    }
 
-    onOpen() {
-        const { contentEl } = this;
+	project: ProjectInfo = new ProjectInfo();
+	resolve: (data: ProjectInfo | null) => void = () => {};
 
-        contentEl.createEl('h2', { text: 'Crie seu novo projeto' });
+	constructor(app: App) {
+		super(app);
+	}
 
-        // Nome do projeto
-        new Setting(contentEl)
-            .setName("Project Name")
-            .setDesc("Type Your Project Name")
-            .addText(text => text
-                .setPlaceholder('Project Name')
-                .onChange(value => this.projectName = value));
+	onOpen() {
+		const { contentEl } = this;
 
-        // Escopo do projeto
-        new Setting(contentEl)
-            .setName("Scope")
-            .setDesc("Type a Scope for your Project")
-            .addText(text => text
-                .setPlaceholder('Project scope')
-                .onChange(value => this.projectScope = value));
+		contentEl.createEl('h2', { text: 'Crie seu novo projeto' });
 
-        // Botões
-        new Setting(contentEl)
-            .addButton((button: ButtonComponent) => {
-                button
-                    .setButtonText("Create")
-                    .onClick(() => {
-                        if (this.projectName && this.projectScope) {
-                            this.close();
-                            this.resolve({ projectName: this.projectName, projectScope: this.projectScope });
-                        } else {
-                            new Notice("Please Fill all Camps");
-                        }
-                    });
-            });
-    }
+		// Nome do projeto
+		new Setting(contentEl)
+			.setName("Project Name")
+			.setDesc("Type Your Project Name")
+			.addText(text => text.onChange(value => this.project.name = value))
 
-    onClose() {
-        const { contentEl } = this;
-        contentEl.empty();
-    }
+		// Escopo do projeto
+		new Setting(contentEl)
+			.setName("Scope")
+			.setDesc("Type a Scope for your Project")
+			.addText(text => text.onChange(value => this.project.scope= value))
 
-    open() {
-        return new Promise<{ projectName: string; projectScope: string } | null>((resolve) => {
-            this.resolve = resolve;
-            super.open();
-        });
-    }
+		new Setting(contentEl)
+			.setName("Context")
+			.setDesc("What brough this project in to existence?")
+			.addTextArea(text => text
+				.onChange(value => this.project.context= value));
+
+		new Setting(contentEl)
+			.setName("Files")
+			.setDesc("Links? Books names?")
+			.addTextArea(text => text
+				.onChange(value => this.project.files= value));
+
+		new Setting(contentEl)
+			.setName("Objectives")
+			.setDesc("With this project i whant to...")
+			.addTextArea(text => text
+				.onChange(value => this.project.objectives= value));
+
+		new Setting(contentEl)
+			.setName("RoadMap")
+			.setDesc("First i will do this big thing, then do that other big thing.")
+			.addTextArea(text => text
+				.onChange(value => this.project.roadmap= value));
+
+
+		new Setting(contentEl)
+			.addButton((button: ButtonComponent) => {
+				button.setButtonText("Create").onClick(() => {
+					try {
+						this.project.validate();
+						this.close();
+						this.resolve(this.project);
+					} catch (e: any) {
+						new Notice(e.message || "Please fill in required fields.");
+					}
+				});
+			});
+	}
+
+	onClose() {
+		const { contentEl } = this;
+		contentEl.empty();
+	}
+
+	open(): Promise<ProjectInfo | null> {
+		return new Promise(resolve => {
+			this.resolve = resolve;
+			super.open();
+		});
+	}
 }
 

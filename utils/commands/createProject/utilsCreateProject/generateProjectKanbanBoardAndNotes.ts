@@ -9,21 +9,18 @@ import {generateActivityNoteContent } from "./generateActivityNoteContent";
 import {ensureFolderExists,} from "../../../core/ensureFolderExists";
 import {createFileIfNotExists} from "../../../core/createFileIfNotExists";
 
+import { ProjectInfo } from "../../../../classes/projectInfo"; // ajuste conforme o caminho correto
+
 export async function generateKanbanBoardAndNotes(
   app: App,
   {
-    projectName,
-    projectScope,
-    board
-  }: {
-    projectName: string;
-    projectScope: string;
-    board: ColumnData[];
-  }
+    board,
+    ...project // desestrutura o restante como `ProjectInfo`
+  }: ProjectInfo & { board: ColumnData[] }
 ) {
-  const basePath = getBaseProjectPath(projectScope, projectName);
-  const boardPath = getBoardPath(projectScope, projectName);
-  const notesFolderPath = getNotesFolderPath(projectScope, projectName);
+  const basePath = getBaseProjectPath(project.scope, project.name);
+  const boardPath = getBoardPath(project.scope, project.name);
+  const notesFolderPath = getNotesFolderPath(project.scope, project.name);
 
   await ensureFolderExists(app, notesFolderPath);
 

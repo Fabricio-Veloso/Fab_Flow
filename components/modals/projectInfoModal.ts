@@ -29,6 +29,24 @@ export class projectInfoModal extends Modal {
 			.addText(text => text.onChange(value => this.project.scope= value))
 
 		new Setting(contentEl)
+			.setName("Status")
+			.setDesc("What brought this project into existence?")
+			.addTextArea(text => {
+				const now = new Date();
+				const dateStr = now.toISOString().split("T")[0]; 
+				const timeStr = now.toTimeString().split(" ")[0]; 
+				const defaultValue = `### ${dateStr}\n#### ${timeStr}\n- Filling this document.`;
+
+				text.setValue(defaultValue); 
+
+				this.project.status = defaultValue; 
+
+				text.onChange(value => {
+					this.project.status = value; 
+				});
+			});
+
+		new Setting(contentEl)
 			.setName("Context")
 			.setDesc("What brough this project in to existence?")
 			.addTextArea(text => text

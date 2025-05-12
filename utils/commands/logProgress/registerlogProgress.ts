@@ -1,12 +1,12 @@
 import {Plugin} from "obsidian";
-import {logProgressCommentCb} from './logProgressCommentCb'
+import {logProgressCb} from './logProgressCb'
 import {PLUGIN_ID} from '../../consts'
 
-export function registerlogProgressComment(plugin: Plugin) {
+export function registerlogProgress(plugin: Plugin) {
 	plugin.addCommand({
 		id: `${PLUGIN_ID}:logProgressComment`,
 		name: "logProgressComment",
-		callback: () => logProgressCommentCb(plugin)
+		callback: () => logProgressCb(plugin.app, plugin)
 	});
 }
 

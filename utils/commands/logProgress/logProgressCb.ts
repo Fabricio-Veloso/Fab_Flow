@@ -1,8 +1,9 @@
-import {markdownComment } from "../../../components/modals/markdownComment.ts";
-import { App } from "obsidian";
+import {MarkdownCommentModal } from "../../../components/modals/markdownComment";
+import { App, TFolder } from "obsidian";
 
-logProgressCommentCb() {
-
+export function logProgressCb(app:App) {
+	const folders = app.vault.getAllLoadedFiles().filter(f => f instanceof TFolder);
+	console.log(folders);
 	// Get all the scopes names, project names and activities...
 	//	Get the current scope, project and activity.
 	//	Create a modal instance
@@ -13,3 +14,4 @@ logProgressCommentCb() {
 	//	Send feedback to user.
 
 }
+
